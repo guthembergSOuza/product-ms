@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,7 +52,7 @@ public class ProductController {
 		return ResponseEntity.ok(this.productService.atualizar(id, produto));
     }
 	
-	@ApiOperation("Listar todos artesao")
+	@ApiOperation("Buscar Produto por ID")
     @GetMapping("/{id}")
     public ResponseEntity<Product> buscarProduto(@PathVariable(required = true) Long id) 
     {
@@ -63,6 +64,21 @@ public class ProductController {
     public List<Product> listar() 
     {
 		return this.productService.listarProdutos();
+    }
+	
+	@ApiOperation("Listar Produtos por Parametros")
+    @GetMapping("/search")
+    public List<Product> filtrarProdutos(@RequestParam(name="min_price",required = false) String min_price,
+    		@RequestParam(name="max_price",required = false) String max_price) 
+    {
+		return this.productService.filtrar(min_price,max_price);
+    }
+	
+	@ApiOperation("Recebe o ID da produto e o exclui do banco.")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> exluir(@PathVariable(required = true) Long id) {
+		this.productService.excluir(id);
+		return ResponseEntity.noContent().build();
     }
 	
 }
