@@ -1,5 +1,6 @@
 package com.desafio.productms.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,16 @@ public class ProductService {
 		}
 		
 		return null;
+	}
+	
+	public Product buscarProduto(Long id) {
+		
+		Optional<Product> produtoExistente = this.repository.findById(id);
+		
+		return produtoExistente.isPresent() ? produtoExistente.get() : null;
+	}
+	
+	public List<Product> listarProdutos(){
+		return this.repository.findAll();
 	}
 }
