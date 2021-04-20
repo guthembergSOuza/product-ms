@@ -37,13 +37,13 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 	@Column(name="NAME")
-	@NotBlank
+	@NotNull
 	private String name;
 	@Column(name="DESCRIPTION")
-	@NotBlank
+	@NotNull
 	private String description;
 	@Column(name="PRICE")
-	@NotBlank
+	@NotNull
 	private Double price;
 
 	
