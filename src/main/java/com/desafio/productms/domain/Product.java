@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -36,13 +37,13 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 	@Column(name="NAME")
-	@NotNull
+	@NotBlank
 	private String name;
 	@Column(name="DESCRIPTION")
-	@NotNull
+	@NotBlank
 	private String description;
 	@Column(name="PRICE")
-	@NotNull
+	@NotBlank
 	private Double price;
 
 	

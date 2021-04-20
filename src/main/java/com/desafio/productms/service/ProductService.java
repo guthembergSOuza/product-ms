@@ -58,11 +58,16 @@ public class ProductService {
 		return this.repository.findAll();
 	}
 	
-	public List<Product> filtrar(String min_price, String max_price){
+	public List<Product> filtrar(String min_price, String max_price, String q){
 		
 		List<Product> listaProdutos = this.repository.findAll((Specification<Product>) (root, cq, cb) -> {
             Predicate p = cb.conjunction();
             
+            if(q !=null) {
+            	p = cb.and(p, cb.equal(root.get("name"), cb.literal(q)));
+            	p = cb.or(p, cb.equal(root.get("description"), cb.literal(q)));
+            	
+            }
 		    if (max_price != null) {
 		    	p = cb.and(p, cb.lessThanOrEqualTo(root.get("price"), cb.literal(Double.parseDouble(max_price))));
 		    }
